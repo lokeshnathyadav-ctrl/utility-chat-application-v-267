@@ -77,12 +77,10 @@ class Chatbot:                     # a class is a user defined datatype, where a
 #    memory=memory,
 #    handle_parsing_errors=True)
 
-groq_api_key = st.sidebar.text_input("Access Token🔐", type = "password")
-
 st.set_page_config(
     page_title = "Utility ChatBot",
     page_icon = "🌏")
-
+groq_api_key = st.sidebar.text_input("Access Token🔐", type = "password")
 st.title("Utility Based ChatBot🔎")
 st.write("Welcome to the utility based conversational ChatBot 🧑🏼‍💻👨🏼‍💻")
 st.write("This ChatBot is Meant for General Questionaire📋")
