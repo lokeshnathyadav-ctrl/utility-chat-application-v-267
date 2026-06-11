@@ -1,23 +1,24 @@
 
 import streamlit as st
 from langchain_groq import ChatGroq
-from langchain.agents import initialize_agent, AgentType
-from langchain.agents.agent_types import AgentType
-from langchain.agents import AgentType
+#from langchain.agents import initialize_agent, AgentType
+#from langchain.agents.agent_types import AgentType
+#from langchain.agents import AgentType
 from langchain.memory import ConversationBufferMemory
 import os
 import pandas as pd
 from langchain_core.messages import SystemMessage, HumanMessage
 from langchain import hub
-from langchain.agents import load_tools
-from langchain.agents import Tool
+#from langchain.agents import load_tools
+#from langchain.agents import Tool
 from pydantic import BaseModel, Field, ValidationError
 from typing import List, Optional, Dict
-from langchain.agents import load_tools
-from langchain_community.agent_toolkits.load_tools import load_tools
+#from langchain.agents import load_tools
+#from langchain_community.agent_toolkits.load_tools import load_tools
 import getpass
 from langchain.utilities import SerpAPIWrapper
-from langchain.agents import initialize_agent
+#from langchain.agents import initialize_agent
+from langchain.chains import ConversationChain
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
@@ -27,7 +28,12 @@ llm = ChatGroq(
     temperature = 0,
     max_tokens = 1024,
     max_retries = 2,
-    groq_api_key = GROQ_API_KEY) 
+    groq_api_key = GROQ_API_KEY)
+conversation = ConversatioChain(
+    llm = llm,
+    verbose = False,
+    memory = ConversationBufferMemory())
+    
 
 class Chatbot:                     # a class is a user defined datatype, where a name is given to that datatype
     def __init__(self):            # everything inside __init__ will automatically be run when an object is declared
@@ -48,7 +54,7 @@ class Chatbot:                     # a class is a user defined datatype, where a
         4. Pass the final response as output.
         """
         try:
-            response = chat_agent.run(agent_prompt)
+            response = conversation.predict(agent_prompt)
             return response
         except Exception as e:
             print(f"Agent Error: {e}")
@@ -62,13 +68,14 @@ class Chatbot:                     # a class is a user defined datatype, where a
         response = self.query_response(user_query)
         return response
     
-memory = ConversationBufferMemory(memory_key="chat_history")
-chat_agent = initialize_agent(
-    llm=llm,
-    agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
-    verbose=False,
-    memory=memory,
-    handle_parsing_errors=True)
+#memory = ConversationBufferMemory(memory_key="chat_history")
+#chat_agent = initialize_agent(
+#    llm=llm,
+#    tool = tools,
+#    agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
+#    verbose=False,
+#    memory=memory,
+#    handle_parsing_errors=True)
 
 groq_api_key = st.sidebar.text_input("Access Token🔐", type = "password")
 
