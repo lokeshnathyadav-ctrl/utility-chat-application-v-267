@@ -2,7 +2,7 @@ name: Utility ChatBot
 on:
   push:
     branches:
-      -main
+      - main
 jobs:
   deploy-hosting:
     name: Deploy Hosting
