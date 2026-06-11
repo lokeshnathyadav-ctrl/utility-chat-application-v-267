@@ -44,8 +44,7 @@ class Chatbot:                     # a class is a user defined datatype, where a
         agent_prompt = f"""
         The user is querying the large language model to get relevant answer.
         
-        User Query:
-        '{user_query}'
+        User Query: '{user_query}'
 
         Follow these below instructions while generating response:
         1. Analyze the user's query carefully.
@@ -53,8 +52,8 @@ class Chatbot:                     # a class is a user defined datatype, where a
         3. Generate appropriate response to the user query. 
         4. Pass the final response as output.
         """
-        try:
-            response = conversation.predict(agent_prompt)
+        try:            
+            response = conversation.run(agent_prompt)            
             return response
         except Exception as e:
             print(f"Agent Error: {e}")
@@ -82,8 +81,7 @@ st.set_page_config(
     page_icon = "🌏")
 groq_api_key = st.sidebar.text_input("Access Token🔐", type = "password")
 st.title("Utility Based ChatBot🔎")
-st.write("Welcome to the utility based conversational ChatBot 🧑🏼‍💻👨🏼‍💻")
-st.write("This ChatBot is Meant for General Questionaire📋")
+st.write("Welcome to the utility based conversational ChatBot👨🏼‍💻")
 
 if "bot" not in st.session_state:
     st.session_state.bot = Chatbot()
